@@ -107,7 +107,7 @@ class MultiThemeAIApp(ctk.CTk):
         )
         self.subtitle_label.pack(padx=20, pady=(0, 15))
 
-        # Social Media / Links Labels (Directly under header)
+        # Social Media / Links Labels
         self.github_label = ctk.CTkLabel(
             self.sidebar,
             text="GitHub: skuldexter-web",
@@ -130,11 +130,8 @@ class MultiThemeAIApp(ctk.CTk):
             font=ctk.CTkFont(size=11),
             text_color=theme["sub_col"]
         )
-        # Only pack if default is v1ru5-ai (not the case here since default is viking-ai)
         if theme["show_v1ru5_ig"]:
             self.insta2_label.pack(padx=20, pady=(0, 15), anchor="w")
-        else:
-            self.insta2_label.pack_forget()
 
         # Theme Selection Dropdown
         self.theme_label = ctk.CTkLabel(self.sidebar, text="Theme:", text_color=theme["title"], font=ctk.CTkFont(size=12))
@@ -261,7 +258,7 @@ class MultiThemeAIApp(ctk.CTk):
         self.insta2_label.configure(text_color=theme["sub_col"])
         
         if theme["show_v1ru5_ig"]:
-            self.insta2_label.pack(padx=20, pady=(0, 15), anchor="w")
+            self.insta2_label.pack(padx=20, pady=(0, 15), anchor="w", before=self.theme_label)
         else:
             self.insta2_label.pack_forget()
 
