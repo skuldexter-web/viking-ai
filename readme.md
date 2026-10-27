@@ -23,6 +23,19 @@ Before installing VIKING-AI, ensure you have:
 - [Ollama](https://ollama.com) installed and running.
 - Git installed to clone the repository.
 
+## Install Ollama
+
+### Linux & Mac
+
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+### Windows
+```powershell
+irm https://ollama.com/install.ps1 | iex
+```
+
 ---
 
 ## Windows Installation
