@@ -8,7 +8,7 @@ import platform
 OLLAMA_BASE_URL = "http://localhost:11434"
 DEFAULT_MODEL = "qwen2.5-coder:1.5b-base"
 
-# Theme definitions (Viking-AI default, V1RU5-AI 2nd with custom extra Instagram)
+# Theme definitions
 THEMES = {
     "viking-ai": {
         "emoji": "⚡", "subtitle": "Skuld of the Great Hall", "ig2": None,
@@ -124,7 +124,7 @@ class MultiThemeAIApp(ctk.CTk):
         )
         self.insta_label.pack(padx=20, pady=(0, 2), anchor="w")
 
-        # Extra Instagram for V1RU5-AI
+        # Extra Instagram label (v1ru5_0)
         self.insta2_label = ctk.CTkLabel(
             self.sidebar,
             text=theme["ig2"] if theme["ig2"] else "",
