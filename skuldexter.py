@@ -11,49 +11,49 @@ DEFAULT_MODEL = "qwen2.5-coder:1.5b-base"
 # Theme definitions
 THEMES = {
     "viking-ai": {
-        "emoji": "⚡", "subtitle": "Skuld of the Great Hall", "ig2": None,
+        "emoji": "⚡", "subtitle": "Skuld of the Great Hall", "show_v1ru5_ig": False,
         "bg": "#1a1107", "sidebar": "#26180a", "text": "#e6ccb2", "title": "#d4af37",
         "accent": "#d4af37", "accent_text": "#1a1107", "hover": "#b89728",
         "box": "#140e07", "border": "#3d2817", "entry_bg": "#26180a", "entry_text": "#ffffff", "sub_col": "#e25822"
     },
     "v1ru5-ai": {
-        "emoji": "🦠", "subtitle": "V1RU5 Neural Node", "ig2": "Instagram: @V1RU5_0",
+        "emoji": "🦠", "subtitle": "V1RU5 Neural Node", "show_v1ru5_ig": True,
         "bg": "#09040d", "sidebar": "#12061c", "text": "#d0a3ff", "title": "#00ff66",
         "accent": "#00ff66", "accent_text": "#09040d", "hover": "#00c853",
         "box": "#0d0414", "border": "#491269", "entry_bg": "#170826", "entry_text": "#ffffff", "sub_col": "#a822e2"
     },
     "cyberpunk-ai": {
-        "emoji": "🔮", "subtitle": "Neon Grid Operator", "ig2": None,
+        "emoji": "🔮", "subtitle": "Neon Grid Operator", "show_v1ru5_ig": False,
         "bg": "#0b0b16", "sidebar": "#15152b", "text": "#00f0ff", "title": "#ff007f",
         "accent": "#ff007f", "accent_text": "#ffffff", "hover": "#cc0066",
         "box": "#101020", "border": "#00f0ff", "entry_bg": "#1a1a38", "entry_text": "#ffffff", "sub_col": "#00f0ff"
     },
     "hacker-ai": {
-        "emoji": "💻", "subtitle": "Matrix Terminal", "ig2": None,
+        "emoji": "💻", "subtitle": "Matrix Terminal", "show_v1ru5_ig": False,
         "bg": "#020b02", "sidebar": "#051405", "text": "#00ff00", "title": "#00ff00",
         "accent": "#00ff00", "accent_text": "#020b02", "hover": "#00cc00",
         "box": "#030f03", "border": "#006600", "entry_bg": "#082108", "entry_text": "#00ff00", "sub_col": "#008800"
     },
     "milkyway-ai": {
-        "emoji": "🌌", "subtitle": "Cosmic Voyager", "ig2": None,
+        "emoji": "🌌", "subtitle": "Cosmic Voyager", "show_v1ru5_ig": False,
         "bg": "#070814", "sidebar": "#0e1024", "text": "#c58af9", "title": "#8ab4f8",
         "accent": "#8ab4f8", "accent_text": "#070814", "hover": "#5c8df6",
         "box": "#0a0c1c", "border": "#3b426e", "entry_bg": "#141833", "entry_text": "#ffffff", "sub_col": "#c58af9"
     },
     "anonymous-ai": {
-        "emoji": "🎭", "subtitle": "Legion Protocol", "ig2": None,
+        "emoji": "🎭", "subtitle": "Legion Protocol", "show_v1ru5_ig": False,
         "bg": "#0f0f0f", "sidebar": "#161616", "text": "#e0e0e0", "title": "#ff2222",
         "accent": "#ff2222", "accent_text": "#ffffff", "hover": "#cc1b1b",
         "box": "#121212", "border": "#333333", "entry_bg": "#1c1c1c", "entry_text": "#ffffff", "sub_col": "#888888"
     },
     "black and white-ai": {
-        "emoji": "🏴", "subtitle": "Monochrome Core", "ig2": None,
+        "emoji": "🏴", "subtitle": "Monochrome Core", "show_v1ru5_ig": False,
         "bg": "#000000", "sidebar": "#0f0f0f", "text": "#ffffff", "title": "#ffffff",
         "accent": "#ffffff", "accent_text": "#000000", "hover": "#cccccc",
         "box": "#050505", "border": "#333333", "entry_bg": "#141414", "entry_text": "#ffffff", "sub_col": "#888888"
     },
     "white and black-ai": {
-        "emoji": "🏳️", "subtitle": "Lightroom Interface", "ig2": None,
+        "emoji": "🏳️", "subtitle": "Lightroom Interface", "show_v1ru5_ig": False,
         "bg": "#f5f5f5", "sidebar": "#ffffff", "text": "#111111", "title": "#000000",
         "accent": "#000000", "accent_text": "#ffffff", "hover": "#333333",
         "box": "#ffffff", "border": "#cccccc", "entry_bg": "#eaeaea", "entry_text": "#000000", "sub_col": "#555555"
@@ -74,7 +74,7 @@ class MultiThemeAIApp(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.current_theme_name = "viking-ai" # Default theme
+        self.current_theme_name = "viking-ai"
         theme = THEMES[self.current_theme_name]
 
         self.title("Multi-Theme AI Terminal v2.0")
@@ -107,7 +107,7 @@ class MultiThemeAIApp(ctk.CTk):
         )
         self.subtitle_label.pack(padx=20, pady=(0, 15))
 
-        # Social Media / Links Labels
+        # Social Media / Links Labels (Directly under header)
         self.github_label = ctk.CTkLabel(
             self.sidebar,
             text="GitHub: skuldexter-web",
@@ -124,22 +124,21 @@ class MultiThemeAIApp(ctk.CTk):
         )
         self.insta_label.pack(padx=20, pady=(0, 2), anchor="w")
 
-        # Extra Instagram label (v1ru5_0)
         self.insta2_label = ctk.CTkLabel(
             self.sidebar,
-            text=theme["ig2"] if theme["ig2"] else "",
+            text="Instagram: @v1ru5_0",
             font=ctk.CTkFont(size=11),
             text_color=theme["sub_col"]
         )
-        if theme["ig2"]:
+        # Only pack if default is v1ru5-ai (not the case here since default is viking-ai)
+        if theme["show_v1ru5_ig"]:
             self.insta2_label.pack(padx=20, pady=(0, 15), anchor="w")
         else:
-            self.insta2_label.pack(padx=20, pady=(0, 15), anchor="w")
             self.insta2_label.pack_forget()
 
         # Theme Selection Dropdown
-        self.theme_label = ctk.CTkLabel(self.sidebar, text="Select Theme:", text_color=theme["title"], font=ctk.CTkFont(size=12))
-        self.theme_label.pack(padx=20, pady=(5, 0), anchor="w")
+        self.theme_label = ctk.CTkLabel(self.sidebar, text="Theme:", text_color=theme["title"], font=ctk.CTkFont(size=12))
+        self.theme_label.pack(padx=20, pady=(15, 0), anchor="w")
 
         self.theme_dropdown = ctk.CTkOptionMenu(
             self.sidebar, 
@@ -154,7 +153,7 @@ class MultiThemeAIApp(ctk.CTk):
         self.theme_dropdown.pack(padx=20, pady=(5, 10), fill="x")
 
         # Model Selection Dropdown
-        self.model_label = ctk.CTkLabel(self.sidebar, text="Select Model:", text_color=theme["title"], font=ctk.CTkFont(size=12))
+        self.model_label = ctk.CTkLabel(self.sidebar, text="Model:", text_color=theme["title"], font=ctk.CTkFont(size=12))
         self.model_label.pack(padx=20, pady=(5, 0), anchor="w")
 
         self.model_dropdown = ctk.CTkOptionMenu(
@@ -252,19 +251,16 @@ class MultiThemeAIApp(ctk.CTk):
         self.current_theme_name = selected_theme
         theme = THEMES[selected_theme]
 
-        # Update root window & sidebar
         self.configure(fg_color=theme["bg"])
         self.sidebar.configure(fg_color=theme["sidebar"])
 
-        # Update text & titles
         self.title_label.configure(text=f"{theme['emoji']} {selected_theme.upper()} {theme['emoji']}", text_color=theme["title"])
         self.subtitle_label.configure(text=theme["subtitle"], text_color=theme["sub_col"])
         self.github_label.configure(text_color=theme["title"])
         self.insta_label.configure(text_color=theme["sub_col"])
+        self.insta2_label.configure(text_color=theme["sub_col"])
         
-        # Handle secondary Instagram label visibility
-        if theme["ig2"]:
-            self.insta2_label.configure(text=theme["ig2"], text_color=theme["sub_col"])
+        if theme["show_v1ru5_ig"]:
             self.insta2_label.pack(padx=20, pady=(0, 15), anchor="w")
         else:
             self.insta2_label.pack_forget()
@@ -272,7 +268,6 @@ class MultiThemeAIApp(ctk.CTk):
         self.theme_label.configure(text_color=theme["title"])
         self.model_label.configure(text_color=theme["title"])
 
-        # Update dropdowns
         for dd in [self.theme_dropdown, self.model_dropdown]:
             dd.configure(
                 fg_color=theme["border"],
@@ -281,7 +276,6 @@ class MultiThemeAIApp(ctk.CTk):
                 text_color=theme["entry_text"]
             )
 
-        # Update buttons
         for btn in [self.refresh_btn, self.install_btn]:
             btn.configure(
                 fg_color=theme["border"],
@@ -289,7 +283,6 @@ class MultiThemeAIApp(ctk.CTk):
                 text_color=theme["title"]
             )
 
-        # Update chat area
         self.chat_box.configure(
             fg_color=theme["box"],
             text_color=theme["text"],
