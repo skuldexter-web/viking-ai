@@ -1,72 +1,110 @@
-# ⚡ Viking-AI (Skuld's Great Hall v2.0) ⚡
+# VIKING-AI — Skuld's Great Hall v2.0
 
-A custom GUI application built with Python and CustomTkinter that acts as your local Senior IT Engineer & Cybersecurity Red Teamer assistant, powered by **Ollama**.
+> A local AI assistant forged in Valhalla for senior IT engineers, software developers, and cybersecurity red teamers.
+
+---
 
 ## Features
-- **Custom Viking Aesthetic:** Dark wood-themed UI interface.
-- **Dynamic Model Manager:** Select or forge/install models directly via Ollama (`qwen2.5-coder` variants).
-- **Live Thinking Indicator:** Spinner/loading notifications while querying the local model.
+
+- **Viking-Inspired Interface:** Dark, wood-themed CustomTkinter UI.
+- **Model Manager:** Select, download, and install supported Ollama models, including `qwen2.5-coder` variants.
+- **Live Thinking Indicator:** Real-time visual feedback while the AI processes your requests.
+- **Cybersecurity & Coding Focus:** Designed for scripting, debugging, IT administration, and red-team operations.
 
 ---
 
-## 🛠️ Installation Guide
+## Installation Guide
 
-### Prerequisites (All OS)
-1. **Python 3.10+** installed on your system.
-2. **Ollama** installed and running. Download and install it from [ollama.com](https://ollama.com).
+### Prerequisites
+
+Before installing VIKING-AI, ensure you have:
+
+- Python 3.10 or newer.
+- [Ollama](https://ollama.com) installed and running.
+- Git installed to clone the repository.
 
 ---
 
-### 🪟 Windows Users
+## Windows Installation
 
-1. **Install Python & Git:** Ensure Python is added to your system PATH during installation.
-2. **Clone or download** this repository:
-   ```powershell
-   git clone [https://github.com/skuldexter-web/viking-ai.git](https://github.com/skuldexter-web/viking-ai.git)
-   cd viking-ai
-Install the required Python packages:
+### 1. Clone the Repository
 
-PowerShell
+Open PowerShell and run:
+
+```powershell
+git clone https://github.com/skuldexter-web/viking-ai.git
+cd viking-ai
+```
+
+### 2. Install Dependencies
+
+```powershell
 pip install -r requirements.txt
-Pull the default model via Ollama:
+```
 
-PowerShell
+### 3. Download the Default AI Model
+
+```powershell
 ollama pull qwen2.5-coder:1.5b-base
-Run the application:
+```
 
-PowerShell
+### 4. Start VIKING-AI
+
+```powershell
 python skuld.py
+```
 
 ---
 
-### 🐧 Debian / Linux Users (Ubuntu, Kali, Mint, Debian)
+## Linux Installation
 
-Install Tkinter and Pip (required for CustomTkinter on Linux):
+**Supported distributions:** Debian, Ubuntu, Kali Linux, Linux Mint, and other Debian-based distributions.
+
+### 1. Install the Required Packages
+
+Open a terminal and run:
+
 ```bash
 sudo apt update
-sudo apt install python3-tk python3-pip -y
-Clone or download this repository:
+sudo apt install python3 python3-pip python3-venv python3-tk git -y
+```
 
-Bash
-git clone [https://github.com/skuldexter-web/viking-ai.git](https://github.com/skuldexter-web/viking-ai.git)
+### 2. Clone the Repository
+
+```bash
+git clone https://github.com/skuldexter-web/viking-ai.git
 cd viking-ai
-Install the required Python packages:
+```
 
-Bash
-pip install -r requirements.txt --break-system-packages
-# Tip: Alternatively, use a virtual environment: python3 -m venv venv && source venv/bin/activate
-Pull the default model via Ollama:
+### 3. Create and Activate a Virtual Environment
 
-Bash
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 4. Install Dependencies
+
+```bash
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+### 5. Download the Default AI Model
+
+```bash
 ollama pull qwen2.5-coder:1.5b-base
-Run the application:
+```
 
-Bash
+### 6. Start VIKING-AI
+
+```bash
 python3 skuld.py
+```
 
 ---
 
-### Author
-GitHub: skuldexter-web
+## Author
 
-Instagram: @s.k.7.l.d
+- **GitHub:** [skuldexter-web](https://github.com/skuldexter-web)
+- **Instagram:** [@s.k.7.l.d](https://www.instagram.com/s.k.7.l.d/)
