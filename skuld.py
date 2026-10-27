@@ -2,7 +2,6 @@ import customtkinter as ctk
 import urllib.request
 import json
 import threading
-import subprocess
 import platform
 
 # Settings
@@ -29,7 +28,6 @@ class VikingAIApp(ctk.CTk):
         self.configure(fg_color="#1a1107") # Dark wood Viking shed background
 
         self.history = []
-        self.agent_mode = True
         self.is_speaking = False
 
         # Layout grid configuration
@@ -86,18 +84,6 @@ class VikingAIApp(ctk.CTk):
             text_color="#ffffff"
         )
         self.model_dropdown.pack(padx=20, pady=(5, 15), fill="x")
-
-        # Agent Mode Switch
-        self.agent_switch = ctk.CTkSwitch(
-            self.sidebar, 
-            text="Runic Agent Mode (ON)", 
-            progress_color="#e25822",
-            button_color="#d4af37",
-            command=self.toggle_agent_mode,
-            text_color="#f4e8c1"
-        )
-        self.agent_switch.select()
-        self.agent_switch.pack(padx=20, pady=10, anchor="w")
 
         # Refresh Button
         self.refresh_btn = ctk.CTkButton(
@@ -179,11 +165,6 @@ class VikingAIApp(ctk.CTk):
 
         self.fetch_models()
         self.after(800, self.check_first_run)
-
-    def toggle_agent_mode(self):
-        self.agent_mode = bool(self.agent_switch.get())
-        status_text = "Runic Agent Mode (ON)" if self.agent_mode else "Runic Agent Mode (OFF)"
-        self.agent_switch.configure(text=status_text)
 
     def fetch_models(self):
         def run():
@@ -338,20 +319,6 @@ class VikingAIApp(ctk.CTk):
         self.update_loading_animation(True)
         threading.Thread(target=self.process_ai_request, args=(prompt, selected_model), daemon=True).start()
 
-    def execute_system_command(self, cmd):
-        try:
-            is_windows = platform.system() == "Windows"
-            if is_windows:
-                full_cmd = ["powershell", "-Command", cmd]
-            else:
-                full_cmd = ["bash", "-c", cmd]
-
-            result = subprocess.run(full_cmd, capture_output=True, text=True, timeout=20)
-            output = result.stdout if result.stdout else result.stderr
-            return output.strip()
-        except Exception as e:
-            return f"System error during rune execution: {e}"
-
     def process_ai_request(self, prompt, model):
         system_instruction = (
             "ROLE: SENIOR IT ENGINEER, SOFTWARE DEVELOPER & CYBERSECURITY RED TEAMER\n\n"
@@ -364,12 +331,6 @@ class VikingAIApp(ctk.CTk):
             "- Execution: Do not ask for confirmation ('Just do it'). Provide copy-pasteable terminal commands clearly labeled by OS (PowerShell, Windows CMD, Linux).\n"
             "- Response Style: Short, technical, and actionable (Diagnosis -> Fix -> Code/Commands -> Verification)."
         )
-
-        if self.agent_mode:
-            system_instruction += (
-                "\n\nIf the user asks to perform a command-line action or system task, "
-                "provide ONLY valid terminal command blocks using ```powershell ... ``` (for Windows) or ```bash ... ``` (for Linux)."
-            )
 
         payload = {
             "model": model,
@@ -387,19 +348,6 @@ class VikingAIApp(ctk.CTk):
                 ai_response = res.get("response", "").strip()
 
                 self.after(0, lambda: self.append_chat("Skuld (Viking-AI)", ai_response))
-
-                if self.agent_mode and "```" in ai_response:
-                    lines = ai_response.split("```")
-                    for i in range(1, len(lines), 2):
-                        full_block = lines[i].strip()
-                        first_line = full_block.split("\n")[0].strip().lower()
-                        
-                        if first_line in ["powershell", "cmd", "bash"]:
-                            cmd_block = "\n".join(full_block.split("\n")[1:])
-                            if cmd_block.strip():
-                                self.after(0, lambda cb=cmd_block: self.append_chat("SYSTEM", f"⚡ Skuld executing on {platform.system()}:\n{cb}"))
-                                exec_result = self.execute_system_command(cmd_block)
-                                self.after(0, lambda er=exec_result: self.append_chat("SYSTEM OUTPUT", er if er else "Command completed successfully."))
 
         except Exception as e:
             self.after(0, lambda err=e: self.append_chat("SYSTEM ERROR", f"Cannot connect to Ollama runes: {err}"))
