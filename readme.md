@@ -40,33 +40,33 @@ python skuld.py
 ---
 
 ### 🐧 Debian / Linux Users (Ubuntu, Kali, Mint, Debian)
-Install Tkinter and Pip: CustomTkinter requires python3-tk on Linux distributions.
 
-### Bash
+Install Tkinter and Pip (required for CustomTkinter on Linux):
+```bash
 sudo apt update
 sudo apt install python3-tk python3-pip -y
 Clone or download this repository:
 
-### Bash
+Bash
 git clone [https://github.com/skuldexter-web/viking-ai.git](https://github.com/skuldexter-web/viking-ai.git)
 cd viking-ai
 Install the required Python packages:
 
-### Bash
+Bash
 pip install -r requirements.txt --break-system-packages
-(Tip: Alternatively, use a virtual environment: python3 -m venv venv && source venv/bin/activate)
+# Tip: Alternatively, use a virtual environment: python3 -m venv venv && source venv/bin/activate
+Pull the default model via Ollama:
 
-### Pull the default model via Ollama:
-
-### Bash
+Bash
 ollama pull qwen2.5-coder:1.5b-base
 Run the application:
 
-### Bash
+Bash
 python3 skuld.py
 
+---
 
-Author
+### Author
 GitHub: skuldexter-web
 
 Instagram: @s.k.7.l.d
