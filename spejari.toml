@@ -1,0 +1,38 @@
+# Spejari configuration. Every value shown is the built-in default.
+# Command-line flags override this file (see `./run.sh --help`).
+
+[scan]
+max_adapters = 10           # hard limit is 10
+include_interfaces = []     # e.g. ["wlan1", "wlan2"]; empty = use every adapter found
+exclude_interfaces = []     # e.g. ["wlan0"] to keep the onboard Wi-Fi / SSH link alone
+band_2g = true
+band_5g = true
+skip_dfs = false            # true = skip 5 GHz radar (DFS) channels 52-144
+exclude_channels = []       # channel numbers to never scan, e.g. [12, 13, 14]
+passive = false             # true = never transmit probe requests (slower on hidden SSIDs)
+channels_per_scan = 1       # channels per `iw scan` call (1-8); higher = fewer process spawns
+adapter_poll_interval = 2.0 # seconds between hot-plug checks
+scan_timeout = 20.0         # seconds before a stuck scan is abandoned
+
+[log]
+output_dir = "exports"      # relative paths are resolved against the project folder
+min_distance_m = 25.0       # log a known network again after moving this far...
+rssi_improvement_db = 8     # ...or when its signal is this much stronger than ever logged
+feed_update_interval = 5.0  # seconds between live-feed refreshes of the same BSSID
+
+[gps]
+source = "auto"             # auto | gpsd | serial | none
+gpsd_host = "127.0.0.1"
+gpsd_port = 2947
+serial_port = ""            # e.g. "/dev/ttyACM0"; empty = auto-detect (u-blox first)
+baud = 0                    # 0 = auto-detect (irrelevant for USB-CDC u-blox dongles)
+probe_other_ports = false   # also probe non-u-blox /dev/ttyACM* / ttyUSB* devices
+min_fix_mode = 2            # 2 = accept 2D fixes, 3 = require a 3D fix before logging
+min_step_m = 5.0            # ignore GPS jitter smaller than this when summing distance
+max_speed_mps = 70.0        # reject position jumps implying more than ~250 km/h
+stale_after_s = 5.0         # fix is treated as lost after this many seconds of silence
+
+[ui]
+default_mode = "ask"       # ask = pick at start-up | cli | gui
+refresh_hz = 4.0
+feed_history = 500
